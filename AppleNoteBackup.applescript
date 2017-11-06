@@ -17,16 +17,16 @@ repeat with notesFolderName in allFolders
 	
 	tell application "Notes"
 		set thisFolder to (the first folder whose name is notesFolderName)
+		set footer to 0
 		repeat with thisNote in notes of thisFolder
 			set thisNoteBody to body of thisNote
 			set thisNoteName to name of thisNote
-			
 			tell application "Finder"
 				try
 					set thisNoteFile to (make new file at outputFolder with properties {name:thisNoteName})
 				on error
-					set randomNumber to random number from 1 to 100000
-					set thisNoteName to thisNoteName & "_" & randomNumber as string
+					set thisNoteName to thisNoteName & "_" & footer
+					set footer to footer + 1
 					set thisNoteFile to (make new file at outputFolder with properties {name:thisNoteName})
 				end try
 			end tell
